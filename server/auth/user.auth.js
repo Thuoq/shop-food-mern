@@ -1,12 +1,12 @@
 const User = require("../models/user.model");
 exports.userAuth =  async (req,res,next) => {
     const { email }  = req.body;
-    let exitsEmail = await User.findOne({email: email});
-    if(exitsEmail) { 
-        res.status(404).send({
-            status: 400,
-            error: "User exits"
-        })
+    let emailExists = await User.findOne({email: email});
+    if(emailExists) { 
+        res.status(400).json({
+            message : "user exits"
+        }) 
+        return; 
     }
     next();
 }
